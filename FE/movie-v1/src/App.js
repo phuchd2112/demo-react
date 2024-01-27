@@ -12,7 +12,7 @@ import Reviews from "./component/reviews/Reviews";
 function App() {
   const [movies, setMovies] = useState();
   const [movie, setMovie] = useState();
-  const [reviews, setReviews] = useState();
+  const [reviews, setReviews] = useState([]);
   
   const getMovie = async () => {
     try {
@@ -26,7 +26,7 @@ function App() {
 
   const getMovieData = async (movieId) => {
     try {
-      const response = await axios.get(`/api/v1/movies/id/${movieId}`);
+      const response = await axios.get(`/api/v1/movies/imdb/${movieId}`);
       const singleMovie = response.data;
       setMovie(singleMovie);
     } catch (error) {

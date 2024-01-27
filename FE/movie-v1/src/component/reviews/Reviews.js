@@ -11,25 +11,25 @@ const Reviews = ({ getMovieData, movie, reviews, setReviews }) => {
   const revText = useRef();
   let params = useParams();
   const movieId = params.movieId;
-
+  console.log(params);
   useEffect(() => {
     getMovieData(movieId);
   }, []);
 
   const addReview = async (e) => {
+    console.log(reviews);
     e.preventDefault();
     const rev = revText.current;
-
     try {
-        const response = await axios.post("/api/v1/reviews", {
-            reviewBody: rev.value,
-            imdbId: movieId,
-          });
-          const updateReviews = [...reviews, {body:rev.value}]
-          rev.value = "";
-          setReviews(updateReviews);
+      const response = await axios.post("/api/v1/reviews", {
+        reviewBody: rev.value,
+        imdbId: movieId,
+      });
+      const updateReviews = [...reviews, { body: rev.value }];
+      rev.value = "";
+      setReviews(updateReviews);
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
   };
 
@@ -64,16 +64,18 @@ const Reviews = ({ getMovieData, movie, reviews, setReviews }) => {
             </>
           }
           {reviews?.map((r) => {
-            <>
-              <Row>
-                <Col>{r.body}</Col>
-              </Row>
-              <Row>
-                <Col>
-                  <hr />
-                </Col>
-              </Row>
-            </>;
+            return (
+              <>
+                <Row>
+                  <Col>{r.body}</Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <hr />
+                  </Col>
+                </Row>
+              </>
+            );
           })}
         </Col>
       </Row>
@@ -85,5 +87,4 @@ const Reviews = ({ getMovieData, movie, reviews, setReviews }) => {
     </Container>
   );
 };
-  export default Reviews;
-
+export default Reviews;
